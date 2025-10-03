@@ -12,5 +12,19 @@ export default function VanDetail() {
     }, [vanID])
 
 
-    return <h1>Van detail page goes here</h1>
+    return (
+        <div className="van-detail-container">
+            {van ? (
+                <div className="van-detail">
+                    <img src={van.imageUrl} alt={`${van.name} van parked outdoors.`} />
+                    <span className={`van-type ${van.type} selected`}>{van.type}</span>
+                    <h2>{van.name}</h2>
+                    <p className="van-price"><span>${van.price}</span>/day</p>
+                    <p>{van.description}</p>
+                    <button className="link-button">Rent this van</button>
+                </div>
+                ) : <h2>Loading...</h2>
+            }
+        </div>
+    )
 }
