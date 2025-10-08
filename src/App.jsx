@@ -20,9 +20,10 @@ function App() {
           <Route path="/vans/:id" element={<VanDetail />} />
         </Route>
         <Route path="/about" element={<About />} />
-        <Route path="/host" element={<Dashboard />} />
-        <Route path="/host/income" element={<Income />} />
-        <Route path="/host/reviews" element={<Reviews />} />
+        <Route path="/host" element={<Dashboard />}>
+          <Route path="income" element={<Income />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
