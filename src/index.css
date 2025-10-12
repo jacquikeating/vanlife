@@ -18,6 +18,12 @@ body {
   scrollbar-width: none;
 }
 
+.site-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 header {
     height: 110px;
     display: flex;
