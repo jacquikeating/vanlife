@@ -12,7 +12,9 @@ export default function HostVanDetail() {
     }, [])
 
     const activeStyles = {
-        color: "red"
+        fontWeight: "bold",
+        textDecoration: "underline",
+        color: "#161616"
     }
 
     if (!currentVan) {
