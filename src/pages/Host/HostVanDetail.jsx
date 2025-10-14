@@ -16,12 +16,14 @@ export default function HostVanDetail() {
     }
 
     return (
-        <div className="host-van" key={currentVan.id}>
-            <img src={currentVan.imageUrl} alt={`Photo of ${currentVan.name}`} />
-            <div className="host-van-info">
-                <h3>{currentVan.name}</h3>
-                <p>${currentVan.price}/day</p>
+        <section>
+            <div className="host-van" key={currentVan.id}>
+                <img src={currentVan.imageUrl} alt={`Photo of ${currentVan.name}`} />
+                <div className="host-van-info">
+                    <h3>{currentVan.name}</h3>
+                    <p>${currentVan.price}/day</p>
+                </div>
             </div>
-        </div>
+        </section>
     )
 }
