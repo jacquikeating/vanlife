@@ -8,10 +8,20 @@ export default function HostVanDetail() {
     React.useEffect(() => {
         fetch(`/api/host/vans/${id}`)
             .then(res => res.json())
-            .then(data => console.log(data.vans))
+            .then(data => setCurrentVan(data.vans))
     }, [])
 
+    if (!currentVan) {
+        return <h1>Loading...</h1>
+    }
+
     return (
-        <h1>HostVanDetail page goes here</h1>
+        <div className="host-van" key={currentVan.id}>
+            <img src={currentVan.imageUrl} alt={`Photo of ${currentVan.name}`} />
+            <div className="host-van-info">
+                <h3>{currentVan.name}</h3>
+                <p>${currentVan.price}/day</p>
+            </div>
+        </div>
     )
 }
