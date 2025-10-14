@@ -8,7 +8,7 @@ export default function HostVanDetail() {
     React.useEffect(() => {
         fetch(`/api/host/vans/${id}`)
             .then(res => res.json())
-            .then(data => console.log(data.vans[0]))
+            .then(data => console.log(data.vans))
     }, [])
 
     return (
