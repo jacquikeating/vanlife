@@ -23,11 +23,18 @@ export default function HostVanDetail() {
                 className="back-button"
             >&larr; <span>Back to all vans</span></Link>
 
-            <div className="host-van" key={currentVan.id}>
-                <img src={currentVan.imageUrl} alt={`Photo of ${currentVan.name}`} />
-                <div className="host-van-info">
-                    <h3>{currentVan.name}</h3>
-                    <p>${currentVan.price}/day</p>
+            <div className="host-van-detail-layout-container" key={currentVan.id}>
+                <div className="host-van-detail">
+                    <img src={currentVan.imageUrl} alt={`Photo of ${currentVan.name}`} />
+                    <div className="host-van-detail-info-text">
+                        <i
+                            className={`van-type van-type-${currentVan.type}`}
+                        >
+                            {currentVan.type}
+                        </i>
+                        <h3>{currentVan.name}</h3>
+                        <h4>${currentVan.price}/day</h4>
+                    </div>
                 </div>
             </div>
         </section>
