@@ -190,6 +190,15 @@ footer {
     padding-inline: 23px
 }
 
+.van-list-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.van-list-filter-buttons > a {
+    margin-right: 15px;
+}
+
 .van-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -262,7 +271,7 @@ footer {
     color: #4D4D4D;
 }
 
-span[class*='van-type-'] {
+i[class*='van-type-'] {
     padding: 7px 14px;
 }
 

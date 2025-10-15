@@ -34,7 +34,7 @@ export default function Vans() {
                 <Link to="?type=simple" className="van-type simple">Simple</Link>
                 <Link to="?type=luxury" className="van-type luxury">Luxury</Link>
                 <Link to="?type=rugged" className="van-type rugged">Rugged</Link>
-                <Link to="." className="van-type clear-filters">Clear</Link>
+                <Link to="." className="van-type clear-filters">Clear filters</Link>
             </div>
             <div className="van-list">
                 {vanElements}
