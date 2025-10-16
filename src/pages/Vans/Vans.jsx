@@ -26,6 +26,17 @@ export default function Vans() {
             <span className={`van-type ${van.type} selected`}>{van.type}</span>
         </div>
     ))
+
+    function handleFilterChange(key, value) {
+        setSearchParams(prevParams => {
+            if (value) {
+                prevParams.set(key, value)
+            } else {
+                prevParams.delete(key)
+            }
+            return prevParams
+	    })
+    }
 	
 	return (
         <div className="van-list-container">
