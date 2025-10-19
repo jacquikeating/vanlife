@@ -19,7 +19,7 @@ export default function VanDetail() {
                 to={`..${search}`}
                 relative="path"
                 className="back-button"
-            >&larr; <span>Back to all vans</span></Link>
+            >&larr; <span>Back to {search.substr(6) || "all"} vans</span></Link>
 
             {van ? (
                 <div className="van-detail">
