@@ -58,6 +58,10 @@ export default function Vans() {
     if (loading) {
         return <h1>Loading...</h1>
     }
+
+    if (error) {
+        return <h1>There was an error. {error.message}</h1>
+    }
     
 	return (
         <div className="van-list-container">
