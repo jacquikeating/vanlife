@@ -4,13 +4,16 @@ import { getVans } from "../../api"
 
 export default function Vans() {
     const [vans, setVans] = useState([])
+    const [loading, setLoading] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const typeFilter = searchParams.get("type")
 
 	useEffect(() => {
         async function loadVans() {
+            setLoading(true)
             const data = await getVans()
             setVans(data)
+            setLoading(false)
         }
         loadVans()
     }, [])
