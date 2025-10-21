@@ -5,15 +5,21 @@ import { getVans } from "../../api"
 export default function Vans() {
     const [vans, setVans] = useState([])
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
     const [searchParams, setSearchParams] = useSearchParams()
     const typeFilter = searchParams.get("type")
 
 	useEffect(() => {
         async function loadVans() {
             setLoading(true)
-            const data = await getVans()
-            setVans(data)
-            setLoading(false)
+            try {
+                const data = await getVans()
+                setVans(data)
+            } catch (err) {
+                setError(err)
+            } finally {
+                setLoading(false) 
+            }
         }
         loadVans()
     }, [])
