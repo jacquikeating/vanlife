@@ -5,8 +5,6 @@ export default function Login() {
     const [loginFormData, setLoginFormData] = useState({ email: "", password: "" })
     const location = useLocation()  
 
-    console.log(location.state)
-
     function handleSubmit(e) {
         e.preventDefault()
         console.log(loginFormData)
@@ -22,6 +20,7 @@ export default function Login() {
 
     return (
         <div className="login-container">
+            {location.state && <p>{location.state.message}</p>}
             <h1>Sign in to your account</h1>
             <form onSubmit={handleSubmit} className="login-form">
                 <input
