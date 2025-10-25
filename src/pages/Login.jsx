@@ -4,12 +4,24 @@ import { loginUser } from "../api"
 
 export default function Login() {
     const [loginFormData, setLoginFormData] = useState({ email: "", password: "" })
+    const [status, setStatus] = React.useState("idle")
+    const [error, setError] = React.useState(null)
+    
     const location = useLocation()  
 
     function handleSubmit(e) {
         e.preventDefault()
+        setStatus("submitting")
         loginUser(loginFormData)
-            .then(data => console.log(data))
+            .then(data => {
+                setError(null)
+            })
+            .catch(err => {
+                setError(err)
+            })
+            .finally(() => {
+                setStatus("idle")
+            })
     }
     
     function handleChange(e) {
