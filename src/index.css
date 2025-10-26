@@ -531,3 +531,10 @@ i[class*='van-type-'] {
     color: white;
     font-family: "Inter", sans-serif;
 }
+
+.login-error {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: red;
+    margin-bottom: 0;
+}
