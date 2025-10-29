@@ -16,7 +16,7 @@ export default function Login() {
         loginUser(loginFormData)
             .then(data => {
                 setError(null)
-                localStorage.removeItem("loggedin", true)
+                localStorage.setItem("loggedin", true)
                 navigate("/host", { replace: true })
             })
             .catch(err => {
@@ -39,6 +39,8 @@ export default function Login() {
         <div className="login-container">
             {location?.state && <p className="login-error">{location.state?.message}</p>}
             <h1>Sign in to your account</h1>
+            {error?.message && <p className="login-error">{error}</p>}
+
             <form onSubmit={handleSubmit} className="login-form">
                 <input
                     name="email"
@@ -54,7 +56,11 @@ export default function Login() {
                     placeholder="Password"
                     value={loginFormData.password}
                 />
-                <button>Log in</button>
+                <button
+                    disabled = {status === "submiting"}
+                >
+                   {status === "submitting" ? "Logging in..." : "Log in"}
+                </button>
             </form>
         </div>
     )
