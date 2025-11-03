@@ -37,13 +37,18 @@ export default function Login() {
         }))
     }
 
+    function logout() {
+        localStorage.removeItem("loggedin")
+        navigate("/login", { replace: true })
+    }
+
     return (
         <div className="login-container">
             {
                 isLoggedIn ? (
                     <>
                         <h1>Welcome back</h1>
-                        <button className="logout-button">Log Out</button>
+                        <button className="logout-button" onClick={logout}>Log Out</button>
                     </>
                 ) : (
                     <>
