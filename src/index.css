@@ -715,7 +715,7 @@ img.graph {
     border-top: none;
 }
 
-.login-form > button {
+.login-form > button, .logout-button {
     background-color: #FF8C38;
     border: none;
     border-radius: 6px;
@@ -723,6 +723,11 @@ img.graph {
     margin-top: 22px;
     color: white;
     font-family: "Inter", sans-serif;
+}
+
+.logout-button {
+    max-width: 500px;
+    width: 100%;
 }
 
 .login-error {

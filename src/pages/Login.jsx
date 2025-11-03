@@ -6,9 +6,11 @@ export default function Login() {
     const [loginFormData, setLoginFormData] = useState({ email: "", password: "" })
     const [status, setStatus] = useState("idle")
     const [error, setError] = useState(null)
-    
+
     const location = useLocation() 
     const navigate = useNavigate() 
+
+    const isLoggedIn = localStorage.getItem("loggedin")
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -37,31 +39,43 @@ export default function Login() {
 
     return (
         <div className="login-container">
-            {location?.state && <p className="login-error">{location.state?.message}</p>}
-            <h1>Sign in to your account</h1>
-            {error?.message && <p className="login-error">{error}</p>}
+            {
+                isLoggedIn ? (
+                    <>
+                        <h1>Welcome back</h1>
+                        <button className="logout-button">Log Out</button>
+                    </>
+                ) : (
+                    <>
+                        {location?.state && <p className="login-error">{location.state?.message}</p>}
+                        <h1>Sign in to your account</h1>
+                        {error?.message && <p className="login-error">{error}</p>}
 
-            <form onSubmit={handleSubmit} className="login-form">
-                <input
-                    name="email"
-                    onChange={handleChange}
-                    type="email"
-                    placeholder="Email address"
-                    value={loginFormData.email}
-                />
-                <input
-                    name="password"
-                    onChange={handleChange}
-                    type="password"
-                    placeholder="Password"
-                    value={loginFormData.password}
-                />
-                <button
-                    disabled = {status === "submiting"}
-                >
-                   {status === "submitting" ? "Logging in..." : "Log in"}
-                </button>
-            </form>
+                        <form onSubmit={handleSubmit} className="login-form">
+                            <input
+                                name="email"
+                                onChange={handleChange}
+                                type="email"
+                                placeholder="Email address"
+                                value={loginFormData.email}
+                            />
+                            <input
+                                name="password"
+                                onChange={handleChange}
+                                type="password"
+                                placeholder="Password"
+                                value={loginFormData.password}
+                            />
+                            <button
+                                disabled = {status === "submiting"}
+                            >
+                            {status === "submitting" ? "Logging in..." : "Log in"}
+                            </button>
+                        </form>
+                    </>
+                )
+            }
+            
         </div>
     )
 }
