@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection } from "firebase/firestore/lite";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD1ED2x9QDOUMGLAQ4pwFFslOvZoOO_BNE",
@@ -10,9 +10,17 @@ const firebaseConfig = {
   appId: "1:746842630873:web:f6c6d26efaacb43b656cc8"
 };
 
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
-const vansCollectionRef = collection(db, "vans")
+// const vansCollectionRef = collection(db, "vans")
+    
+
+const querySnapshot = await getDocs(collection(db, "vans"));
+querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+  console.log(doc.id, " => ", doc.data());
+});
 
 export async function getVans() {
     const res = await fetch("/api/vans")
