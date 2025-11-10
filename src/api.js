@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD1ED2x9QDOUMGLAQ4pwFFslOvZoOO_BNE",
@@ -10,30 +10,38 @@ const firebaseConfig = {
   appId: "1:746842630873:web:f6c6d26efaacb43b656cc8"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
-// const vansCollectionRef = collection(db, "vans")
-    
-
-const querySnapshot = await getDocs(collection(db, "vans"));
-querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
-  console.log(doc.id, " => ", doc.data());
-});
+const vansCollectionRef = collection(db, "vans")
 
 export async function getVans() {
-    const res = await fetch("/api/vans")
-    if (!res.ok) {
-        throw {
-            message: "Failed to fetch vans",
-            statusText: res.statusText,
-            status: res.status
-        }
-    }
-    const data = await res.json()
-    return data.vans
+    const snapshot = await getDocs(vansCollectionRef)
+    const vans = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+    }))
+    console.log(vans)
+    return vans
 }
+
+export async function getVan(id) {
+    const docRef = doc(db, "vans", id)
+    const snapshot = await getDoc(docRef)
+    return {...snapshot.data(), id: snapshot.id}
+}
+
+// export async function getVans() {
+//     const res = await fetch("/api/vans")
+//     if (!res.ok) {
+//         throw {
+//             message: "Failed to fetch vans",
+//             statusText: res.statusText,
+//             status: res.status
+//         }
+//     }
+//     const data = await res.json()
+//     return data.vans
+// }
 
 export async function loginUser(creds) {
     const res = await fetch("/api/login",
