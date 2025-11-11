@@ -4,17 +4,34 @@ import { getVan } from "../../api"
    
 export default function VanDetail() {
     const [van, setVan] = useState(null)
+    const [loading, setLoading] = React.useState(false)
+    const [error, setError] = React.useState(null)
     const params  = useParams()
     const location = useLocation()
     const search = location.state?.search || ""
 
-    useEffect(() => {
-        async function loadVan() {
-            const data = await getVan(params.id)
-            setVan(data)
+   useEffect(() => {
+        async function loadVans() {
+            setLoading(true)
+            try {
+                const data = await getVan(id)
+                setVan(data)
+            } catch (err) {
+                setError(err)
+            } finally {
+                setLoading(false)
+            }
         }
-        loadVan()
-    }, [params.id])
+        loadVans()
+    }, [id])
+
+    if (loading) {
+        return <h1>Loading...</h1>
+    }
+    
+    if (error) {
+        return <h1>There was an error: {error.message}</h1>
+    }
 
     return (
         <div className="van-detail-container">
@@ -24,7 +41,7 @@ export default function VanDetail() {
                 className="back-button"
             >&larr; <span>Back to {search.substr(6) || "all"} vans</span></Link>
 
-            {van ? (
+            {van && (
                 <div className="van-detail">
                     <img src={van.imageUrl} alt={`${van.name} van parked outdoors.`} />
                     <i className={`van-type ${van.type} selected`}>{van.type}</i>
@@ -33,7 +50,7 @@ export default function VanDetail() {
                     <p>{van.description}</p>
                     <button className="link-button">Rent this van</button>
                 </div>
-                ) : <h2>Loading...</h2>
+                )
             }
         </div>
     )
