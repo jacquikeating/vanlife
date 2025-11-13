@@ -1,15 +1,21 @@
-import React from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { getHostVans } from "../../api"
 
 
 export default function HostVans() {
-const [vans, setVans] = React.useState([])
+    const [vans, setVans] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
-    React.useEffect(() => {
-        fetch("/api/host/vans")
-            .then(res => res.json())
-            .then(data => setVans(data.vans))
+    useEffect(() => {
+        setLoading(true)
+        getHostVans()
+            .then(data => setVans(data))
+            .catch(err => setError(err))
+            .finally(() => setLoading(false))
     }, [])
+
 
     const hostVansEls = vans.map(van => (
         <Link
@@ -26,6 +32,15 @@ const [vans, setVans] = React.useState([])
             </div>
         </Link>
     ))
+
+    if (loading) {
+        return <h1>Loading...</h1>
+    }
+
+    if (error) {
+        return <h1>Error: {error.message}</h1>
+    }
+
 
     return (
         <section>
