@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-// import { loginUser } from "../api"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// import { loginUser } from "../api"
 
 export default function Login() {
     const [loginFormData, setLoginFormData] = useState({ email: "", password: "" })
@@ -10,7 +10,7 @@ export default function Login() {
 
     const location = useLocation() 
     const navigate = useNavigate() 
-    
+
     const isLoggedIn = localStorage.getItem("loggedin")
     const auth = getAuth();
 
@@ -22,6 +22,7 @@ export default function Login() {
                 const user = userCredential.user
                 setError(null)
                 localStorage.setItem("loggedin", true)
+                localStorage.setItem("uid", user.uid)
                 navigate(location.state?.from || "/host", { replace: true })
             })
             .catch(err => {
@@ -61,6 +62,7 @@ export default function Login() {
 
     function logout() {
         localStorage.removeItem("loggedin")
+        localStorage.removeItem("uid")
         navigate("/login", { replace: true })
     }
 
