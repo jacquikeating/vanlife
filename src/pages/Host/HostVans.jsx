@@ -10,7 +10,7 @@ export default function HostVans() {
 
     useEffect(() => {
         setLoading(true)
-        getHostVans()
+        getHostVans("123")
             .then(data => setVans(data))
             .catch(err => setError(err))
             .finally(() => setLoading(false))
