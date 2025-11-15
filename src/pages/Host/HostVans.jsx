@@ -2,20 +2,19 @@ import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { getHostVans } from "../../api"
 
-
 export default function HostVans() {
     const [vans, setVans] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+    const uid = localStorage.getItem("uid")
 
     useEffect(() => {
         setLoading(true)
-        getHostVans("123")
+        getHostVans(uid)
             .then(data => setVans(data))
             .catch(err => setError(err))
             .finally(() => setLoading(false))
     }, [])
-
 
     const hostVansEls = vans.map(van => (
         <Link
@@ -41,7 +40,6 @@ export default function HostVans() {
         return <h1>Error: {error.message}</h1>
     }
 
-
     return (
         <section>
             <h1 className="host-vans-title">Your listed vans</h1>
@@ -52,8 +50,8 @@ export default function HostVans() {
                             {hostVansEls}
                         </section>
                     ) : (
-                            <h2>Loading...</h2>
-                        )
+                        <h2>No vans found</h2>
+                    )
                 }
             </div>
         </section>
