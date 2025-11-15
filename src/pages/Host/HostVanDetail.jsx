@@ -1,15 +1,18 @@
-import React from "react"
+import { useEffect, useState } from "react"
 import { useParams, Link, NavLink, Outlet } from "react-router-dom"
+import { getVan } from "../../api"
 
 export default function HostVanDetail() {
     const { id } = useParams()
-    const [currentVan, setCurrentVan] = React.useState(null)
+    const [currentVan, setCurrentVan] = useState(null)
 
-    React.useEffect(() => {
-        fetch(`/api/host/vans/${id}`)
-            .then(res => res.json())
-            .then(data => setCurrentVan(data.vans))
-    }, [])
+    useEffect(() => {
+        async function loadVans() {
+            const data = await getVan(id)
+            setCurrentVan(data)
+        }
+        loadVans()
+    }, [id])
 
     const activeStyles = {
         fontWeight: "bold",
