@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { loginUser } from "../api"
+// import { loginUser } from "../api"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login() {
     const [loginFormData, setLoginFormData] = useState({ email: "", password: "" })
@@ -9,25 +10,46 @@ export default function Login() {
 
     const location = useLocation() 
     const navigate = useNavigate() 
-
+    
     const isLoggedIn = localStorage.getItem("loggedin")
+    const auth = getAuth();
 
     function handleSubmit(e) {
         e.preventDefault()
         setStatus("submitting")
-        loginUser(loginFormData)
-            .then(data => {
+        signInWithEmailAndPassword(auth, loginFormData.email, loginFormData.password)
+            .then(userCredential => {
+                const user = userCredential.user
                 setError(null)
                 localStorage.setItem("loggedin", true)
                 navigate(location.state?.from || "/host", { replace: true })
             })
             .catch(err => {
+                const errorCode = err.code
+                const errorMessage = err.message
                 setError(err)
             })
             .finally(() => {
                 setStatus("idle")
             })
     }
+
+    // function handleSubmit(e) {
+    //     e.preventDefault()
+    //     setStatus("submitting")
+    //     loginUser(loginFormData)
+    //         .then(data => {
+    //             setError(null)
+    //             localStorage.setItem("loggedin", true)
+    //             navigate(location.state?.from || "/host", { replace: true })
+    //         })
+    //         .catch(err => {
+    //             setError(err)
+    //         })
+    //         .finally(() => {
+    //             setStatus("idle")
+    //         })
+    // }
     
     function handleChange(e) {
         const { name, value } = e.target
