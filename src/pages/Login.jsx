@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-// import { loginUser } from "../api"
 
 export default function Login() {
     const [loginFormData, setLoginFormData] = useState({ email: "", password: "" })
@@ -34,23 +33,6 @@ export default function Login() {
                 setStatus("idle")
             })
     }
-
-    // function handleSubmit(e) {
-    //     e.preventDefault()
-    //     setStatus("submitting")
-    //     loginUser(loginFormData)
-    //         .then(data => {
-    //             setError(null)
-    //             localStorage.setItem("loggedin", true)
-    //             navigate(location.state?.from || "/host", { replace: true })
-    //         })
-    //         .catch(err => {
-    //             setError(err)
-    //         })
-    //         .finally(() => {
-    //             setStatus("idle")
-    //         })
-    // }
     
     function handleChange(e) {
         const { name, value } = e.target
